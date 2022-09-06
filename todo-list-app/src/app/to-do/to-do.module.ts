@@ -8,6 +8,11 @@ import { ToDoAdd2Component } from './to-do-add2/to-do-add2.component';
 import { ToDoItemComponent } from './to-do-item/to-do-item.component';
 import { AppModule } from '../app.module';
 import { DirectivesModule } from '../directives/directives.module';
+import { RouterModule, Routes } from '@angular/router';
+
+let routes: Routes = [
+  { path: '', component: ToDoComponent }
+]
 
 @NgModule({
   declarations: [
@@ -20,9 +25,10 @@ import { DirectivesModule } from '../directives/directives.module';
   imports: [
     CommonModule,
     FormsModule,
-    DirectivesModule
+    DirectivesModule,
+    RouterModule.forChild(routes)
   ],
-  exports:[ToDoComponent]
+  exports: [ToDoComponent]
 })
 export class ToDoModule {
 
@@ -30,4 +36,4 @@ export class ToDoModule {
     console.log('ToDoModule');
   }
 
- }
+}
