@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api:'https://gestion-minera-api.azurewebsites.net/api'
+  api: 'https://gestion-minera-api.azurewebsites.net/api'
 };
 
 /*

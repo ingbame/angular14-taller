@@ -9,7 +9,25 @@ import { ToDoComponent } from './to-do/to-do/to-do.component';
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'home' , loadChildren: () => import('./home/home.module').then(m=> m.HomeModule)}
+  {
+    path: 'home',
+    component: HomeComponent,
+    children: [
+      { path: 'to-do', component: ToDoComponent },
+      // {
+      //   path: 'users', component: UsersComponent,
+      //   children: [
+      //     { path: ':id', component: UsersDetailsComponent }
+      //   ]
+      // }
+      {
+        path: 'users',
+        loadChildren: () => import('./users/users.module').then(m => m.UsersModule)
+
+      }
+    ]
+  }
+
 ];
 
 @NgModule({

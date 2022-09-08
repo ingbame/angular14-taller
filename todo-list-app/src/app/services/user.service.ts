@@ -1,33 +1,52 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
 import { User } from '../models/user';
 
-import { environment } from 'src/environments/environment';
+import { v4 as uuidv4 } from 'uuid';
+import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class UserService {
-  constructor(private http: HttpClient) {
-    // const myObservable  = of (1, 2, 3);
-    // const myObserver = {
-    //   next: (x: any) => console.log('Observe next value: ' + x),
-    //   error: (err: any) => console.log('Error: ' + err),
-    //   complete: ()=> console.log('complete')
-    // };
-    // myObservable.subscribe(myObserver);
 
-    //https://gestion-minera-api.azurewebsites.net/api/user/find
+  uuid: string;
+  constructor(private httpCliente: HttpClient) {
+
+    this.uuid = uuidv4();
+
+    console.log('uuid', this.uuid);
+
+
+    // const myObservable = of (1,2,3);
+
+    // const myObserver = {
+    //   next: (x: any)=> console.log('observe next value: ' + x) ,
+    //   error: (err: any)=> console.log('error', err),
+    //   complete: ()=> console.log('complete ')
+    // };
+
+    // myObservable.subscribe(myObserver);
 
 
   }
+
   find(): Observable<any> {
-    // let users: User[] = [];
-    // users.push({ id: 1, name: 'Alfredo' });
-    // users.push({ id: 2, name: 'Carlos' });
-    // return users;
-    let url = environment.api + '/user/find?pageSize=5';
-    return this.http.get(url, {});
+    let url = `${environment.api}/user/find?pageSize=20`;
+    return this.httpCliente.get(url, {});
+
+  }
+
+  create(user: User): Observable<any> {
+    let url = `${environment.api}/user`;
+    return this.httpCliente.post(url, user);
+  }
+
+  findById(id: number): Observable<User> {
+    let url = `${environment.api}/user/${id}`;
+
+    return this.httpCliente.get<User>(url);
   }
 }
